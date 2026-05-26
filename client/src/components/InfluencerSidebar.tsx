@@ -6,7 +6,6 @@ import {
   TrendingUp,
   BookOpen,
   Trophy,
-  Zap,
 } from 'lucide-react'
 
 const navItems = [
@@ -20,23 +19,16 @@ const navItems = [
 
 export default function InfluencerSidebar() {
   return (
-    <aside className="w-64 min-h-screen bg-[#0a0a14] border-r border-[#1a1a2e] flex flex-col">
+    <aside className="w-64 min-h-screen bg-[#090909] border-r border-[#1a1a1e] flex flex-col">
       {/* Logo */}
-      <div className="px-6 py-6 border-b border-[#1a1a2e]">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center">
-            <Zap className="w-5 h-5 text-white" fill="white" />
-          </div>
-          <div>
-            <h1 className="text-white font-bold text-lg leading-none">Xstream</h1>
-            <p className="text-emerald-400 text-xs mt-0.5">Creator Portal</p>
-          </div>
-        </div>
+      <div className="px-5 py-4 border-b border-[#1a1a1e]">
+        <img src="/logo.png" alt="Xstream" className="w-28 h-auto object-contain" style={{ filter: 'brightness(0.9) contrast(1.1)' }} />
+        <p className="text-[#4a6a5a] text-[10px] tracking-[0.25em] uppercase mt-1">Creator Portal</p>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1">
-        <p className="text-gray-600 text-xs font-semibold uppercase tracking-wider px-3 mb-3">
+      <nav className="flex-1 px-3 py-4 space-y-0.5">
+        <p className="text-[#3a3a4a] text-[10px] font-semibold uppercase tracking-widest px-3 mb-3">
           Creator Menu
         </p>
         {navItems.map(({ to, label, icon: Icon, badge }) => (
@@ -47,15 +39,15 @@ export default function InfluencerSidebar() {
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
                 isActive
-                  ? 'bg-emerald-600/20 text-emerald-400 border border-emerald-500/30'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-[#1a2820] text-[#78b898] border border-[#2a5040]/50'
+                  : 'text-[#5a5a6a] hover:text-[#78a888] hover:bg-white/3'
               }`
             }
           >
-            <Icon size={18} className="shrink-0" />
+            <Icon size={17} className="shrink-0" />
             <span className="flex-1">{label}</span>
             {badge && (
-              <span className="text-xs px-1.5 py-0.5 rounded bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-semibold">
+              <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#1a2820] text-[#68a878] border border-[#2a5040]/50 font-bold tracking-wider">
                 {badge}
               </span>
             )}
@@ -64,14 +56,14 @@ export default function InfluencerSidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="px-4 py-4 border-t border-[#1a1a2e]">
+      <div className="px-4 py-4 border-t border-[#1a1a1e]">
         <div className="flex items-center gap-3 px-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center text-white text-xs font-bold">
+          <div className="w-8 h-8 rounded-full bg-[#1a2820] border border-[#2a5040]/50 flex items-center justify-center text-[#68a878] text-xs font-bold">
             CA
           </div>
           <div className="min-w-0">
-            <p className="text-white text-sm font-medium truncate">Creator Account</p>
-            <p className="text-gray-500 text-xs truncate">Influencer</p>
+            <p className="text-[#9898a8] text-sm font-medium truncate">Creator Account</p>
+            <p className="text-[#4a4a5a] text-xs truncate">Influencer</p>
           </div>
         </div>
       </div>
