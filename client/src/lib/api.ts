@@ -1,52 +1,58 @@
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+import * as mock from './mockData'
 
-async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE_URL}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
-    ...options,
-  })
-  if (!res.ok) {
-    const err = await res.text()
-    throw new Error(err || `Request failed: ${res.status}`)
-  }
-  return res.json()
-}
+// Simulate async API — returns data with no network required
+const delay = <T>(data: T): Promise<T> => Promise.resolve(data)
 
 export const api = {
-  // Creators
   getCreators: (params?: Record<string, string>) => {
-    const qs = params ? '?' + new URLSearchParams(params).toString() : ''
-    return request<any[]>(`/creators${qs}`)
+    let data = [...mock.creators]
+    if (params?.platform) data = data.filter(c => c.platform === params.platform)
+    if (params?.niche) data = data.filter(c => c.niche === params.niche)
+    if (params?.status) data = data.filter(c => c.status === params.status)
+    return delay(data)
   },
-  getCreator: (id: string) => request<any>(`/creators/${id}`),
-  createCreator: (data: any) =>
-    request<any>('/creators', { method: 'POST', body: JSON.stringify(data) }),
-  updateCreatorStatus: (id: string, status: string) =>
-    request<any>(`/creators/${id}/status`, {
-      method: 'PATCH',
-      body: JSON.stringify({ status }),
-    }),
+  getCreator: (id: string) => delay(mock.creators.find(c => c.id === id)),
 
-  // Campaigns
   getCampaigns: (params?: Record<string, string>) => {
-    const qs = params ? '?' + new URLSearchParams(params).toString() : ''
-    return request<any[]>(`/campaigns${qs}`)
+    let data = [...mock.campaigns]
+    if (params?.status) data = data.filter(c => c.status === params.status)
+    if (params?.brand) data = data.filter(c => c.brand === params.brand)
+    return delay(data)
   },
-  getCampaign: (id: string) => request<any>(`/campaigns/${id}`),
-  createCampaign: (data: any) =>
-    request<any>('/campaigns', { method: 'POST', body: JSON.stringify(data) }),
+  getCampaign: (id: string) => delay(mock.campaigns.find(c => c.id === id)),
+  createCampaign: (data: unknown) => delay({ id: `camp${Date.now()}`, ...data as object }),
 
-  // Analytics
-  getAnalyticsOverview: () => request<any>('/analytics/overview'),
-  getTimeSeries: () => request<any[]>('/analytics/timeseries'),
-  getPlatformStats: () => request<any[]>('/analytics/platforms'),
-  getNicheStats: () => request<any[]>('/analytics/niches'),
+  getAnalyticsOverview: () => delay(mock.analyticsOverview),
+  getTimeSeries: () => delay(mock.timeseries),
+  getPlatformStats: () => delay(mock.platformStats),
+  getNicheStats: () => delay(mock.nicheStats),
 
-  // Brands
-  getBrands: () => request<any[]>('/brands'),
-  getBrand: (id: string) => request<any>(`/brands/${id}`),
-  createBrand: (data: any) =>
-    request<any>('/brands', { method: 'POST', body: JSON.stringify(data) }),
+  getBrands: () => delay(mock.brands),
+  getBrand: (id: string) => delay(mock.brands.find(b => b.id === id)),
+  createBrand: (data: unknown) => delay({ id: `b${Date.now()}`, ...data as object }),
+
+  getAffiliateLinks: () => delay(mock.affiliateLinks),
+  getPayouts: () => delay(mock.payouts),
+  getAffiliateEarnings: () => delay(mock.influencerEarnings),
+  getCommissionTiers: () => delay(mock.commissionTiers),
+  getAffiliateTimeseries: () => delay(mock.timeseries),
+
+  getCompetitions: (params?: Record<string, string>) => {
+    let data = [...mock.competitions]
+    if (params?.status) data = data.filter(c => c.status === params.status)
+    return delay(data)
+  },
+
+  getPackages: () => delay(mock.videoPackages),
+
+  getOpportunities: (params?: Record<string, string>) => {
+    let data = [...mock.opportunities]
+    if (params?.status) data = data.filter(o => o.status === params.status)
+    if (params?.platform) data = data.filter(o => o.platforms.includes(params.platform))
+    return delay(data)
+  },
+
+  getSubmissions: () => delay(mock.contentSubmissions),
 }
 
 export function formatNumber(n: number): string {

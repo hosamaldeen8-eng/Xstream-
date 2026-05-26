@@ -22,7 +22,7 @@ export default function SellerSidebar() {
     <aside className="w-64 min-h-screen bg-[#090909] border-r border-[#1a1a1e] flex flex-col">
       {/* Logo */}
       <div className="px-5 py-4 border-b border-[#1a1a1e]">
-        <img src="/logo.png" alt="Xstream" className="w-28 h-auto object-contain" style={{ filter: 'brightness(0.9) contrast(1.1)' }} />
+        <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Xstream" className="w-28 h-auto object-contain" style={{ filter: 'brightness(0.9) contrast(1.1)' }} />
         <p className="text-[#4a5a6a] text-[10px] tracking-[0.25em] uppercase mt-1">Seller Portal</p>
       </div>
 

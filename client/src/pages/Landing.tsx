@@ -54,7 +54,7 @@ export default function Landing() {
 
       {/* Logo */}
       <div className="flex flex-col items-center mb-3 relative">
-        <img src="/logo.png" alt="Xstream" className="w-36 h-36 object-contain" style={{ filter: 'brightness(0.95) contrast(1.05)' }} />
+        <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Xstream" className="w-36 h-36 object-contain" style={{ filter: 'brightness(0.95) contrast(1.05)' }} />
         <p className="text-[#5a5a6a] text-xs tracking-[0.3em] uppercase mt-1">Marketing Agency · Business Solutions</p>
       </div>
 
