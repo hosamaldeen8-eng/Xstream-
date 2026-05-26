@@ -11,9 +11,9 @@ import opportunitiesRouter from './routes/opportunities';
 import submissionsRouter from './routes/submissions';
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 5000;
 
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 app.use('/api/creators', creatorsRouter);
